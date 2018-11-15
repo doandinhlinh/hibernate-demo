@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 15, 2018 2:38:23 PM by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="vn.framgia.model.Branch" table="branch" catalog="db_hibernate_demo" optimistic-lock="version">
+        <id name="branchId" type="java.lang.Integer">
+            <column name="branch_id" />
+            <generator class="identity" />
+        </id>
+        <property name="address" type="string">
+            <column name="address" length="30" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="20" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="20" not-null="true" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="10" />
+        </property>
+        <property name="zipCode" type="string">
+            <column name="zip_code" length="12" />
+        </property>
+        <set name="accounts" table="account" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="open_branch_id" not-null="true" />
+            </key>
+            <one-to-many class="vn.framgia.model.Account" />
+        </set>
+        <set name="accTransactions" table="acc_transaction" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="execution_branch_id" />
+            </key>
+            <one-to-many class="vn.framgia.model.AccTransaction" />
+        </set>
+        <set name="employees" table="employee" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="assigned_branch_id" />
+            </key>
+            <one-to-many class="vn.framgia.model.Employee" />
+        </set>
+    </class>
+</hibernate-mapping>

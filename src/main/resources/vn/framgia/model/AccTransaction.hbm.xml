@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 15, 2018 2:38:23 PM by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="vn.framgia.model.AccTransaction" table="acc_transaction" catalog="db_hibernate_demo" optimistic-lock="version">
+        <id name="txnId" type="java.lang.Long">
+            <column name="txn_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="account" class="vn.framgia.model.Account" fetch="select">
+            <column name="account_id" />
+        </many-to-one>
+        <many-to-one name="branch" class="vn.framgia.model.Branch" fetch="select">
+            <column name="execution_branch_id" />
+        </many-to-one>
+        <many-to-one name="employee" class="vn.framgia.model.Employee" fetch="select">
+            <column name="teller_emp_id" />
+        </many-to-one>
+        <property name="amount" type="float">
+            <column name="amount" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="fundsAvailDate" type="timestamp">
+            <column name="funds_avail_date" length="19" not-null="true" />
+        </property>
+        <property name="txnDate" type="timestamp">
+            <column name="txn_date" length="19" not-null="true" />
+        </property>
+        <property name="txnTypeCd" type="string">
+            <column name="txn_type_cd" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>
