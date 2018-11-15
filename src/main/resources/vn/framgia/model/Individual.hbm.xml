@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 15, 2018 2:38:23 PM by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="vn.framgia.model.Individual" table="individual" catalog="db_hibernate_demo" optimistic-lock="version">
+        <id name="custId" type="int">
+            <column name="cust_id" />
+            <generator class="foreign">
+                <param name="property">customer</param>
+            </generator>
+        </id>
+        <one-to-one name="customer" class="vn.framgia.model.Customer" constrained="true"></one-to-one>
+        <property name="birthDate" type="date">
+            <column name="birth_date" length="10" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="30" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="30" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 15, 2018 2:38:23 PM by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="vn.framgia.model.ProductType" table="product_type" catalog="db_hibernate_demo" optimistic-lock="version">
+        <id name="productTypeCd" type="string">
+            <column name="product_type_cd" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <set name="products" table="product" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="product_type_cd" />
+            </key>
+            <one-to-many class="vn.framgia.model.Product" />
+        </set>
+    </class>
+</hibernate-mapping>

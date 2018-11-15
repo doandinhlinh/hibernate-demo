@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 15, 2018 2:38:23 PM by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="vn.framgia.model.Employee" table="employee" catalog="db_hibernate_demo" optimistic-lock="version">
+        <id name="empId" type="java.lang.Integer">
+            <column name="emp_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="branch" class="vn.framgia.model.Branch" fetch="select">
+            <column name="assigned_branch_id" />
+        </many-to-one>
+        <many-to-one name="department" class="vn.framgia.model.Department" fetch="select">
+            <column name="dept_id" />
+        </many-to-one>
+        <many-to-one name="employee" class="vn.framgia.model.Employee" fetch="select">
+            <column name="superior_emp_id" />
+        </many-to-one>
+        <property name="endDate" type="date">
+            <column name="end_date" length="10" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="20" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="20" not-null="true" />
+        </property>
+        <property name="startDate" type="date">
+            <column name="start_date" length="10" not-null="true" />
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="20" />
+        </property>
+        <set name="accounts" table="account" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="open_emp_id" not-null="true" />
+            </key>
+            <one-to-many class="vn.framgia.model.Account" />
+        </set>
+        <set name="accTransactions" table="acc_transaction" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="teller_emp_id" />
+            </key>
+            <one-to-many class="vn.framgia.model.AccTransaction" />
+        </set>
+        <set name="employees" table="employee" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="superior_emp_id" />
+            </key>
+            <one-to-many class="vn.framgia.model.Employee" />
+        </set>
+    </class>
+</hibernate-mapping>
